@@ -103,5 +103,9 @@ pegaMas(Carta, Carta2) :-
     Danio1 >= Danio2.
 
  
+%-------[PUNTO 7A]--------%
 
-    
+jugarContra(Carta, jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), jugador(Nombre, NuevaVida, Mana, Mazo, Mano, Campo)) :-
+    danio(Carta,Danio),
+    NuevaVida is Vida - Danio.
+
