@@ -91,16 +91,11 @@ jugadasPosibles([_|RestoCartas], Mana, CartasPosibles) :-
 
 %-------[PUNTO 6]--------%
 
-
 masDanina(Jugador, NombreCarta) :-
     tieneCarta(Jugador, Carta),
-    nombre(Carta, NombreCarta),
-    forall((tieneCarta(Jugador, Carta2), Carta \= Carta2 ) , pegaMas(Carta, Carta2)  ).
-
-pegaMas(Carta, Carta2) :-
-    danio(Carta, Danio1),
-    danio(Carta2, Danio2),
-    Danio1 >= Danio2.
+    nombre(Carta,NombreCarta),
+    danio(Carta, Danio),
+    not( ((tieneCarta(Jugador,OtraCarta), danio(OtraCarta,OtroDanio)) , OtroDanio > Danio  )).
 
  
 %-------[PUNTO 7A]--------%
