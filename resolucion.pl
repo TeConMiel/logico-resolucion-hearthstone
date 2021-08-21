@@ -47,3 +47,14 @@ cartasPoseidas(Jugador, Cartas) :-
 esGuerrero(Jugador) :-
     jugador(Jugador),
     not(tieneCarta(Jugador,hechizo(_,_,_))).
+
+%-------[PUNTO 3]--------%
+
+empiezaTurno(jugador(Nombre, Vida, Mana, Mazo, Mano, Campo), jugador(Nombre, Vida, ManaActualizado, MazoActualizado, ManoActualizada, Campo)) :-
+    jugador(jugador(Nombre, Vida, Mana, Mazo, Mano, Campo)),
+    sacoCarta(Mazo, Carta, MazoActualizado),
+    append(Mano, [Carta], ManoActualizada),
+    ManaActualizado is Mana + 1.
+
+
+sacoCarta([Cabeza|Lista], Cabeza, Lista).
