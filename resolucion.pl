@@ -50,14 +50,10 @@ esGuerrero(Jugador) :-
 
 %-------[PUNTO 3]--------%
 
-empiezaTurno(jugador(Nombre, Vida, Mana, Mazo, Mano, Campo), jugador(Nombre, Vida, ManaActualizado, MazoActualizado, ManoActualizada, Campo)) :-
-    jugador(jugador(Nombre, Vida, Mana, Mazo, Mano, Campo)),
-    sacoCarta(Mazo, Carta, MazoActualizado),
-    append(Mano, [Carta], ManoActualizada),
+empiezaTurno(jugador(Nombre, Vida, Mana, [Carta | RestoMazo], Mano, Campo), jugador(Nombre, Vida, ManaActualizado, RestoMazo, [Carta|Mano], Campo)) :-
+    jugador(jugador(Nombre, Vida, Mana, [Carta | RestoMazo], Mano, Campo)),
     ManaActualizado is Mana + 1.
 
-
-sacoCarta([Cabeza|Lista], Cabeza, Lista).
 
 %-------[PUNTO 4A]--------%
 
@@ -69,5 +65,5 @@ puedeUtilizar(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), Carta) :-
 costoMana(hechizo(_,_,Costo), Costo).
 costoMana(criatura(_,_,_,Costo), Costo).
 
-
 %-------[PUNTO 4B]--------%
+
