@@ -5,7 +5,7 @@ Alumno: Franco damian romagnoli
 Legajo: 173.112-9
 */
 
-jugador(jugador(franco, 100, 100, [prueba1], [prueba2], [prueba3])).
+jugador(jugador(franco, 100, 100, [hechizo(pedro,xD,xD)], [prueba2], [prueba3])).
 
 nombre(jugador(Nombre,_,_,_,_,_), Nombre).
 nombre(criatura(Nombre,_,_,_), Nombre).
@@ -43,3 +43,7 @@ cartasPoseidas(Jugador, Cartas) :-
     cartasCampo(Jugador, Cartas).
 
 %-------[PUNTO 2]--------%
+
+esGuerrero(Jugador) :-
+    jugador(Jugador),
+    not(tieneCarta(Jugador,hechizo(_,_,_))).
