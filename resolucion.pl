@@ -5,7 +5,7 @@ Alumno: Franco damian romagnoli
 Legajo: 173.112-9
 */
 
-jugador(jugador(franco, 100, 100, [hechizo(pedro,xD,xD)], [prueba2], [prueba3])).
+jugador(jugador(franco, 100, 100, [hechizo(pedro,xD,50)], [prueba2], [prueba3])).
 
 nombre(jugador(Nombre,_,_,_,_,_), Nombre).
 nombre(criatura(Nombre,_,_,_), Nombre).
@@ -58,3 +58,16 @@ empiezaTurno(jugador(Nombre, Vida, Mana, Mazo, Mano, Campo), jugador(Nombre, Vid
 
 
 sacoCarta([Cabeza|Lista], Cabeza, Lista).
+
+%-------[PUNTO 4A]--------%
+
+puedeUtilizar(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), Carta) :-
+    tieneCarta(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo),Carta),
+    costoMana(Carta,Costo),
+    Mana >= Costo.
+
+costoMana(hechizo(_,_,Costo), Costo).
+costoMana(criatura(_,_,_,Costo), Costo).
+
+
+%-------[PUNTO 4B]--------%
