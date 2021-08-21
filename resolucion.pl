@@ -69,3 +69,22 @@ puedeJugarEnElProximoTurno(Jugador, Cartas) :-
     empiezaTurno(Jugador, JugadorActualizado),
     cartasMano(JugadorActualizado, Mano),
     findall( Carta, (member(Carta, Mano), puedeUtilizar(JugadorActualizado, Carta)) , Cartas ).
+
+%-------[PUNTO 5]--------%
+
+posiblesJugadas(Jugador, PosiblesJugadas) :-
+    jugador(Jugador),
+    puedeJugarEnElProximoTurno(Jugador, Cartas),
+    mana(Jugador, Mana),
+    jugadasPosibles(Cartas, Mana, PosiblesJugadas).
+
+jugadasPosibles([], _ , []).
+
+jugadasPosibles([Carta| RestoCartas], Mana, [Carta| CartasPosibles]) :-
+    mana(Carta, Costo),
+    Mana >= Costo,
+    NuevoMana is Mana - Costo,
+    jugadasPosibles(RestoCartas, NuevoMana, CartasPosibles).
+
+jugadasPosibles([_|RestoCartas], Mana, CartasPosibles) :-
+    jugadasPosibles(RestoCartas, Mana, CartasPosibles).
