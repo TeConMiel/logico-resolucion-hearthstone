@@ -57,13 +57,15 @@ empiezaTurno(jugador(Nombre, Vida, Mana, [Carta | RestoMazo], Mano, Campo), juga
 
 %-------[PUNTO 4A]--------%
 
-puedeUtilizar(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), Carta) :-
-    tieneCarta(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo),Carta),
-    costoMana(Carta,Costo),
-    Mana >= Costo.
-
-costoMana(hechizo(_,_,Costo), Costo).
-costoMana(criatura(_,_,_,Costo), Costo).
+puedeUtilizar(Jugador, Carta) :-
+    mana(Jugador, Mana),
+    mana(Carta, CostoMana),
+    Mana >= CostoMana.
 
 %-------[PUNTO 4B]--------%
 
+puedeJugarEnElProximoTurno(Jugador, Cartas) :-
+    jugador(Jugador),
+    empiezaTurno(Jugador, JugadorActualizado),
+    cartasMano(JugadorActualizado, Mano),
+    findall( Carta, (member(Carta, Mano), puedeUtilizar(JugadorActualizado, Carta)) , Cartas ).
