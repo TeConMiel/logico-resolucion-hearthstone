@@ -5,7 +5,7 @@ Alumno: Franco damian romagnoli
 Legajo: 173.112-9
 */
 
-jugador(jugador(franco, 100, 100, [hechizo(pedro,xD,50)], [prueba2], [prueba3])).
+jugador(jugador(franco, 100, 100, [hechizo(lluviaMeteoro,danio(50),100), hechizo(tormentaArena,danio(6),40)], [criatura(martin2, 100, 100, 100)], [criatura(martin, 100, 101, 100)])).
 
 nombre(jugador(Nombre,_,_,_,_,_), Nombre).
 nombre(criatura(Nombre,_,_,_), Nombre).
@@ -15,7 +15,7 @@ vida(jugador(_,Vida,_,_,_,_), Vida).
 vida(criatura(_,_,Vida,_), Vida).
 vida(hechizo(_,curar(Vida),_), Vida).
 
-danio(criatura(_,Danio,_), Danio).
+danio(criatura(_,Danio,_,_), Danio).
 danio(hechizo(_,danio(Danio),_), Danio).
 
 mana(jugador(_,_,Mana,_,_,_), Mana).
@@ -88,3 +88,20 @@ jugadasPosibles([Carta| RestoCartas], Mana, [Carta| CartasPosibles]) :-
 
 jugadasPosibles([_|RestoCartas], Mana, CartasPosibles) :-
     jugadasPosibles(RestoCartas, Mana, CartasPosibles).
+
+%-------[PUNTO 6]--------%
+
+
+masDanina(Jugador, NombreCarta) :-
+    tieneCarta(Jugador, Carta),
+    nombre(Carta, NombreCarta),
+    forall((tieneCarta(Jugador, Carta2), Carta \= Carta2 ) , pegaMas(Carta, Carta2)  ).
+
+pegaMas(Carta, Carta2) :-
+    danio(Carta, Danio1),
+    danio(Carta2, Danio2),
+    Danio1 >= Danio2.
+
+ 
+
+    
