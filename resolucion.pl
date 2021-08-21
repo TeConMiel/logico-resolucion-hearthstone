@@ -5,7 +5,7 @@ Alumno: Franco damian romagnoli
 Legajo: 173.112-9
 */
 
-jugador(jugador(franco, 100, 100, [hechizo(lluviaMeteoro,danio(50),100), hechizo(tormentaArena,danio(6),40)], [criatura(martin2, 100, 100, 100)], [criatura(martin, 100, 101, 100)])).
+jugador(jugador(franco, 100, 100, [hechizo(lluviaMeteoro,danio(50),100), hechizo(tormentaArena,danio(6),40), hechizo(celestial,curar(200),50)], [criatura(martin2, 100, 100, 100)], [criatura(martin, 100, 101, 100)])).
 
 nombre(jugador(Nombre,_,_,_,_,_), Nombre).
 nombre(criatura(Nombre,_,_,_), Nombre).
@@ -103,4 +103,20 @@ masDanina(Jugador, NombreCarta) :-
 jugarContra(Carta, jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), jugador(Nombre, NuevaVida, Mana, Mazo, Mano, Campo)) :-
     danio(Carta,Danio),
     NuevaVida is Vida - Danio.
+
+%-------[PUNTO 7B]--------%
+
+jugar(Carta, jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), jugador(Nombre,NuevaVida,NuevoMana,Mazo,Mano,Campo)) :-
+    tieneCarta(jugador(Nombre,Vida,Mana,Mazo,Mano,Campo), Carta),
+    mana(Carta, Costo),
+    Mana >= Costo,
+    NuevoMana is Mana - Costo,
+    curar(Carta, Vida, NuevaVida ).
+
+curar(hechizo(_,curar(Curacion),_), Vida, NuevaVida) :-
+    NuevaVida is Vida + Curacion.
+curar(Carta, Vida, NuevaVida) :-
+    Carta \= hechizo(_,curar(_),_),
+    NuevaVida is Vida.
+
 
